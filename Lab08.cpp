@@ -40,11 +40,12 @@ Vector2f GetTextSize(Text text) {
 }
 
 int main()
+//draws vv
 {
     RenderWindow window(VideoMode(800, 600), "Balloon Buster");
     World world(Vector2f(0, 0));
     int score(0);
-    int arrows(1);
+    int arrows(5);
 
     SoundBuffer popBuffer;
     if (!popBuffer.loadFromFile("balloonpop.ogg")) {
@@ -93,13 +94,15 @@ int main()
     right.setStatic(true);
     world.AddPhysicsBody(right);
 
+    //draws^^
+
     Texture redTex;
-    LoadTex(redTex, "images/red_balloon.png");
+    LoadTex(redTex, "images/duck.png");
     PhysicsShapeList<PhysicsSprite> balloons;
-    for (int i(0); i < 6; i++) {
+    for (int i(0); i < 3; i++) {
         PhysicsSprite& balloon = balloons.Create();
         balloon.setTexture(redTex);
-        int x = 50 + ((700 / 5) * i);
+        int x = 50 + ((200 / 5) * i);
         Vector2f sz = balloon.getSize();
         balloon.setCenter(Vector2f(x, 20 + (sz.y / 2)));
         balloon.setVelocity(Vector2f(0.25, 0));
@@ -133,6 +136,7 @@ int main()
     Time lastTime(clock.getElapsedTime());
     Time currentTime(lastTime);
 
+    //frame check
     while ((arrows > 0) || drawingArrow) {
         currentTime = clock.getElapsedTime();
         Time deltaTime = currentTime - lastTime;
@@ -141,6 +145,7 @@ int main()
             lastTime = currentTime;
             world.UpdatePhysics(deltaMS);
             MoveCrossbow(crossBow, deltaMS);
+            //shooting
             if (Keyboard::isKeyPressed(Keyboard::Space) &&
                 !drawingArrow) {
                 drawingArrow = true;
